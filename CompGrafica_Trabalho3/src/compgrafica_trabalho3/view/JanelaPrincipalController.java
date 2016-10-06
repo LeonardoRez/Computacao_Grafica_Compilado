@@ -1,5 +1,6 @@
 package compgrafica_trabalho3.view;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +27,8 @@ public class JanelaPrincipalController implements Initializable {
     CheckBox vertical;
     @FXML
     CheckBox horizontal;
+    @FXML
+    Slider regulaCinza;
 
     boolean selecionada;
 
@@ -120,6 +124,35 @@ public class JanelaPrincipalController implements Initializable {
                     } else {
                         wi.getPixelWriter().setColor(i, j, Color.WHITE);
                     }
+                }
+            }
+            img.setImage(wi);
+        }
+    }
+
+    public Color calcCinza(Color c, double variacao) {
+        double tom = (c.getRed() + c.getGreen() + c.getBlue()) / 3 + variacao;
+        if (tom > 1) {
+            c = new Color(1, 1, 1, 1);
+        } else if (tom < 0) {
+            c = new Color(0, 0, 0, 1);
+        } else {
+            c = new Color(tom, tom, tom, 1);
+        }
+        return c;
+    }
+
+    @FXML
+    public void escalaCinza() {
+        if (img.getImage() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "IMAGEM NÃO SELECIONADA");
+            a.show();
+        } else {
+            WritableImage wi = img.snapshot(null, null);
+            System.out.println(this.regulaCinza.getValue());
+            for (int i = 0; i < wi.getWidth(); i++) {
+                for (int j = 0; j < wi.getHeight(); j++) {
+                    wi.getPixelWriter().setColor(i, j, calcCinza(wi.getPixelReader().getColor(i, j), this.regulaCinza.getValue()));
                 }
             }
             img.setImage(wi);
