@@ -210,12 +210,13 @@ public class InterfacePrincipalController implements Initializable {
                     double raio = Math.sqrt(Math.pow((fClick.getY() - e.getY()), 2) + Math.pow((fClick.getX() - e.getX()), 2));
                     double yInit = fClick.getY() - raio;
                     double yFinal = fClick.getY() + raio;
-                    for (double i = yInit; i <= yFinal; i += 0.1) {
+                    int TAM = 1;
+                    for (double i = yInit; i <= yFinal; i += 0.005) {
                         //i = - Math.sqrt(raio²-(yo-y)²) + fClick.getX();
                         double x = -Math.sqrt(raio * raio - Math.pow((fClick.getY() - i), 2)) + fClick.getX();
-                        canvas.getGraphicsContext2D().fillRect(x, i, 2, 2);
+                        canvas.getGraphicsContext2D().fillRect(x, i, TAM, TAM);
                         x = Math.sqrt(raio * raio - Math.pow((fClick.getY() - i), 2)) + fClick.getX();
-                        canvas.getGraphicsContext2D().fillRect(x, i, 2, 2);
+                        canvas.getGraphicsContext2D().fillRect(x, i, TAM, TAM);
                     }
 //                    canvas.getGraphicsContext2D().fillRect(fClick.getX()+1,fClick.getY()+raio, 2, 2);
 //                    canvas.getGraphicsContext2D().fillRect(fClick.getX()-1,fClick.getY()-raio, 2, 2);
