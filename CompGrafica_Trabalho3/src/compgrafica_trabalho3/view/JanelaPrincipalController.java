@@ -153,7 +153,7 @@ public class JanelaPrincipalController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "IMAGEM NÃO SELECIONADA");
             a.show();
         } else {
-            WritableImage wi = img.snapshot(null, null);
+            WritableImage wi = new ImageView(new Image(f.toURI().toString())).snapshot(null, null);
 //            System.out.println(this.regulaCinza.getValue());
             for (int i = 0; i < wi.getWidth(); i++) {
                 for (int j = 0; j < wi.getHeight(); j++) {
