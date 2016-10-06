@@ -34,6 +34,8 @@
             <Button layoutX="1.0" layoutY="379.0" mnemonicParsing="false" onAction="#escalaCinza" prefHeight="25.0" prefWidth="192.0" text="Escala de cinza" />
             <Slider fx:id="regulaCinza" blockIncrement="0.05" layoutX="26.0" layoutY="404.0" max="1.0" min="-1.0" />
             <Button layoutX="1.0" layoutY="34.0" mnemonicParsing="false" onAction="#reloadImg" prefHeight="26.0" prefWidth="192.0" text="Recarregar" />
+            <Button layoutX="1.0" layoutY="422.0" mnemonicParsing="false" onAction="#passaBaixa" prefHeight="25.0" prefWidth="193.0" text="Filtro passa-baixa" />
+            <Button layoutX="1.0" layoutY="447.0" mnemonicParsing="false" onAction="#passaAlta" prefHeight="25.0" prefWidth="193.0" text="Filtro passa-alta" />
          </children>
       </AnchorPane>
       <ScrollPane prefHeight="200.0" prefWidth="200.0">

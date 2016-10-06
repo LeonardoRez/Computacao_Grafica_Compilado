@@ -93,7 +93,7 @@ public class JanelaPrincipalController implements Initializable {
             }
         }
         for (int k = 0; k < quant; k++) {
-            System.out.println("Cor" + k + "\t R:" + i[k][0] + "\tG:" + i[k][1] + "\tB:" + i[k][2]);
+//            System.out.println("Cor" + k + "\t R:" + i[k][0] + "\tG:" + i[k][1] + "\tB:" + i[k][2]);
             double r = i[k][0] / 255.0;
             double g = i[k][1] / 255.0;
             double b = i[k][2] / 255.0;
@@ -154,7 +154,7 @@ public class JanelaPrincipalController implements Initializable {
             a.show();
         } else {
             WritableImage wi = img.snapshot(null, null);
-            System.out.println(this.regulaCinza.getValue());
+//            System.out.println(this.regulaCinza.getValue());
             for (int i = 0; i < wi.getWidth(); i++) {
                 for (int j = 0; j < wi.getHeight(); j++) {
                     wi.getPixelWriter().setColor(i, j, calcCinza(wi.getPixelReader().getColor(i, j), this.regulaCinza.getValue()));
@@ -231,7 +231,7 @@ public class JanelaPrincipalController implements Initializable {
                 double[] p3 = calcRotacaoPonto(0, wi.getHeight(), radiano);
                 int largura = (int) Math.ceil(Math.abs(Double.max(p1[0], Double.max(p2[0], p3[0])) - Double.min(p1[0], Double.min(p2[0], p3[0]))));
                 int altura = (int) Math.ceil(Math.abs(Double.max(p1[1], Double.max(p2[1], p3[1])) - Double.min(p1[1], Double.min(p2[1], p3[1]))));
-                System.out.println("Largura: " + largura + "\nAltura: " + altura);
+//                System.out.println("Largura: " + largura + "\nAltura: " + altura);
                 int correcaoX = (int) Math.abs(0 - Double.min(p1[0], Double.min(p2[0], p3[0])));
                 //teste
                 int correcaoY;
@@ -280,7 +280,7 @@ public class JanelaPrincipalController implements Initializable {
                 double[] p3 = calcEscala(0, wi.getHeight(), Sx, Sy);
                 int largura = (int) Math.ceil(Math.abs(Double.max(p1[0], Double.max(p2[0], p3[0])) - Double.min(p1[0], Double.min(p2[0], p3[0]))));
                 int altura = (int) Math.ceil(Math.abs(Double.max(p1[1], Double.max(p2[1], p3[1])) - Double.min(p1[1], Double.min(p2[1], p3[1]))));
-                System.out.println("Largura: " + largura + "\nAltura: " + altura);
+//                System.out.println("Largura: " + largura + "\nAltura: " + altura);
                 int correcaoX = (int) Math.abs(0 - Double.min(p1[0], Double.min(p2[0], p3[0])));
                 //teste
                 int correcaoY;
@@ -373,7 +373,7 @@ public class JanelaPrincipalController implements Initializable {
                 double[] p3 = calcReflexao(0, wi.getHeight(), horizontal, vertical);
                 int largura = (int) Math.ceil(Math.abs(Double.max(p1[0], Double.max(p2[0], p3[0])) - Double.min(p1[0], Double.min(p2[0], p3[0]))));
                 int altura = (int) Math.ceil(Math.abs(Double.max(p1[1], Double.max(p2[1], p3[1])) - Double.min(p1[1], Double.min(p2[1], p3[1]))));
-                System.out.println("Largura: " + largura + "\nAltura: " + altura);
+//                System.out.println("Largura: " + largura + "\nAltura: " + altura);
                 int correcaoX = (int) Math.abs(0 - Double.min(p1[0], Double.min(p2[0], p3[0])));
                 //teste
                 int correcaoY;
@@ -433,7 +433,7 @@ public class JanelaPrincipalController implements Initializable {
                 double[] p3 = calcCisalhamento(0, wi.getHeight(), horizontal, vertical);
                 int largura = (int) Math.ceil(Math.abs(Double.max(p1[0], Double.max(p2[0], p3[0])) - Double.min(p1[0], Double.min(p2[0], p3[0]))));
                 int altura = (int) Math.ceil(Math.abs(Double.max(p1[1], Double.max(p2[1], p3[1])) - Double.min(p1[1], Double.min(p2[1], p3[1]))));
-                System.out.println("Largura: " + largura + "\nAltura: " + altura);
+//                System.out.println("Largura: " + largura + "\nAltura: " + altura);
                 int correcaoX = (int) Math.abs(0 - Double.min(p1[0], Double.min(p2[0], p3[0])));
                 //teste
                 int correcaoY;
@@ -455,6 +455,178 @@ public class JanelaPrincipalController implements Initializable {
             } catch (NumberFormatException e) {
                 Alert a = new Alert(Alert.AlertType.ERROR, "VALOR INVALIDO");
                 a.show();
+            }
+        }
+    }
+
+    @FXML
+    public void passaBaixa() {
+        if (img.getImage() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "IMAGEM NÃO SELECIONADA");
+            a.show();
+        } else {
+            try {
+                WritableImage wi = img.snapshot(null, null);
+                WritableImage result = new WritableImage((int) wi.getWidth(), (int) wi.getHeight());
+                for (int i = 0; i < wi.getWidth(); i++) {
+                    for (int j = 0; j < wi.getHeight(); j++) {
+                        int quant = 0;
+                        double r = 0, g = 0, b = 0;
+                        if (i > 0) { //pixel da esquerda
+                            r += wi.getPixelReader().getColor(i - 1, j).getRed();
+                            g += wi.getPixelReader().getColor(i - 1, j).getGreen();
+                            b += wi.getPixelReader().getColor(i - 1, j).getBlue();
+                            quant++;
+                            if (j > 0) { // esquerda-superior
+                                r += wi.getPixelReader().getColor(i - 1, j - 1).getRed();
+                                g += wi.getPixelReader().getColor(i - 1, j - 1).getGreen();
+                                b += wi.getPixelReader().getColor(i - 1, j - 1).getBlue();
+                                quant++;
+                            }
+                            if (j + 1 < wi.getHeight()) { // esquerda-inferior
+                                r += wi.getPixelReader().getColor(i - 1, j + 1).getRed();
+                                g += wi.getPixelReader().getColor(i - 1, j + 1).getGreen();
+                                b += wi.getPixelReader().getColor(i - 1, j + 1).getBlue();
+                                quant++;
+                            }
+                        }
+                        if (i + 1 < wi.getHeight()) { //pixel da direita
+                            r += wi.getPixelReader().getColor(i + 1, j).getRed();
+                            g += wi.getPixelReader().getColor(i + 1, j).getGreen();
+                            b += wi.getPixelReader().getColor(i + 1, j).getBlue();
+                            quant++;
+                            if (j > 0) { // direita-superior
+                                r += wi.getPixelReader().getColor(i + 1, j - 1).getRed();
+                                g += wi.getPixelReader().getColor(i + 1, j - 1).getGreen();
+                                b += wi.getPixelReader().getColor(i + 1, j - 1).getBlue();
+                                quant++;
+                            }
+                            if (j + 1 < wi.getHeight()) { // direita-inferior
+                                r += wi.getPixelReader().getColor(i + 1, j + 1).getRed();
+                                g += wi.getPixelReader().getColor(i + 1, j + 1).getGreen();
+                                b += wi.getPixelReader().getColor(i + 1, j + 1).getBlue();
+                                quant++;
+                            }
+                        }
+                        r += wi.getPixelReader().getColor(i, j).getRed();
+                        g += wi.getPixelReader().getColor(i, j).getGreen();
+                        b += wi.getPixelReader().getColor(i, j).getBlue();
+                        quant++;
+                        if (j > 0) { // esquerda-superior
+                            r += wi.getPixelReader().getColor(i, j - 1).getRed();
+                            g += wi.getPixelReader().getColor(i, j - 1).getGreen();
+                            b += wi.getPixelReader().getColor(i, j - 1).getBlue();
+                            quant++;
+                        }
+                        if (j + 1 < wi.getHeight()) { // esquerda-inferior
+                            r += wi.getPixelReader().getColor(i, j + 1).getRed();
+                            g += wi.getPixelReader().getColor(i, j + 1).getGreen();
+                            b += wi.getPixelReader().getColor(i, j + 1).getBlue();
+                            quant++;
+                        }
+
+                        r /= quant;
+                        g /= quant;
+                        b /= quant;
+//                        System.out.println("R: " + r + "\tG: " + g + "\tB: " + b);
+                        result.getPixelWriter().setColor(i, j, new Color(r, g, b, 1));
+                    }
+                }
+                img.setImage(result);
+            } catch (Throwable e) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "ALGO ERRADO NÃO ESTÁ CERTO");
+                a.show();
+            }
+        }
+
+    }
+
+    @FXML
+    public void passaAlta() {
+        if (img.getImage() == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "IMAGEM NÃO SELECIONADA");
+            a.show();
+        } else {
+            try {
+                WritableImage wi = img.snapshot(null, null);
+                WritableImage result = new WritableImage((int) wi.getWidth(), (int) wi.getHeight());
+                for (int i = 0; i < wi.getWidth(); i++) {
+                    for (int j = 0; j < wi.getHeight(); j++) {
+                        int quant = 0;
+                        double r = 0, g = 0, b = 0;
+                        if (i > 0) { //pixel da esquerda
+                            r += wi.getPixelReader().getColor(i - 1, j).getRed();
+                            g += wi.getPixelReader().getColor(i - 1, j).getGreen();
+                            b += wi.getPixelReader().getColor(i - 1, j).getBlue();
+                            quant++;
+                            if (j > 0) { // esquerda-superior
+                                r += wi.getPixelReader().getColor(i - 1, j - 1).getRed();
+                                g += wi.getPixelReader().getColor(i - 1, j - 1).getGreen();
+                                b += wi.getPixelReader().getColor(i - 1, j - 1).getBlue();
+                                quant++;
+                            }
+                            if (j + 1 < wi.getHeight()) { // esquerda-inferior
+                                r += wi.getPixelReader().getColor(i - 1, j + 1).getRed();
+                                g += wi.getPixelReader().getColor(i - 1, j + 1).getGreen();
+                                b += wi.getPixelReader().getColor(i - 1, j + 1).getBlue();
+                                quant++;
+                            }
+                        }
+                        if (i + 1 < wi.getHeight()) { //pixel da direita
+                            r += wi.getPixelReader().getColor(i + 1, j).getRed();
+                            g += wi.getPixelReader().getColor(i + 1, j).getGreen();
+                            b += wi.getPixelReader().getColor(i + 1, j).getBlue();
+                            quant++;
+                            if (j > 0) { // direita-superior
+                                r += wi.getPixelReader().getColor(i + 1, j - 1).getRed();
+                                g += wi.getPixelReader().getColor(i + 1, j - 1).getGreen();
+                                b += wi.getPixelReader().getColor(i + 1, j - 1).getBlue();
+                                quant++;
+                            }
+                            if (j + 1 < wi.getHeight()) { // direita-inferior
+                                r += wi.getPixelReader().getColor(i + 1, j + 1).getRed();
+                                g += wi.getPixelReader().getColor(i + 1, j + 1).getGreen();
+                                b += wi.getPixelReader().getColor(i + 1, j + 1).getBlue();
+                                quant++;
+                            }
+                        }
+                        if (j > 0) { // esquerda-superior
+                            r += wi.getPixelReader().getColor(i, j - 1).getRed();
+                            g += wi.getPixelReader().getColor(i, j - 1).getGreen();
+                            b += wi.getPixelReader().getColor(i, j - 1).getBlue();
+                            quant++;
+                        }
+                        if (j + 1 < wi.getHeight()) { // esquerda-inferior
+                            r += wi.getPixelReader().getColor(i, j + 1).getRed();
+                            g += wi.getPixelReader().getColor(i, j + 1).getGreen();
+                            b += wi.getPixelReader().getColor(i, j + 1).getBlue();
+                            quant++;
+                        }
+
+                        double R = wi.getPixelReader().getColor(i, j).getRed() * quant;
+                        double G = wi.getPixelReader().getColor(i, j).getGreen() * quant;
+                        double B = wi.getPixelReader().getColor(i, j).getBlue() * quant;
+                        R = Math.abs(R - r);
+                        if (R > 1) {
+                            R = 1;
+                        }
+                        G = Math.abs(G - g);
+                        if (G > 1) {
+                            G = 1;
+                        }
+                        B = Math.abs(B - b);
+                        if (B > 1) {
+                            B = 1;
+                        }
+//                        System.out.println("R: " + r + "\tG: " + g + "\tB: " + b);
+                        result.getPixelWriter().setColor(i, j, new Color(R, G, B, 1));
+                    }
+                }
+                img.setImage(result);
+            } catch (Throwable e) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "ALGO ERRADO NÃO ESTÁ CERTO");
+                a.show();
+                e.printStackTrace();
             }
         }
     }
