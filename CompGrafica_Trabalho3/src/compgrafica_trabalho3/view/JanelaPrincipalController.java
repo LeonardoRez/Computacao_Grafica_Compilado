@@ -48,6 +48,14 @@ public class JanelaPrincipalController implements Initializable {
         }
     }
 
+    @FXML
+    public void reloadImg() {
+        if (f != null) {
+            img.setImage(new Image(f.toURI().toString()));
+            selecionada = true;
+        }
+    }
+
     public Color[] coresMaisOcorrencias(WritableImage wi, int quant) {
         Color[] c = new Color[quant];
 
@@ -104,10 +112,7 @@ public class JanelaPrincipalController implements Initializable {
         double G = c.getGreen();
         double B = c.getBlue();
 
-        if (((R + B + G) / 3) < 0.5) {
-            return true;
-        }
-        return false;
+        return ((R + B + G) / 3) < 0.5;
     }
 
     @FXML

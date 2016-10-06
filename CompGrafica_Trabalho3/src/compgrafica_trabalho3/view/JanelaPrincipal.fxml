@@ -9,11 +9,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.24185463659147868" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compgrafica_trabalho3.view.JanelaPrincipalController">
+<SplitPane dividerPositions="0.24185463659147868" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compgrafica_trabalho3.view.JanelaPrincipalController">
   <items>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button layoutY="35.0" mnemonicParsing="false" onAction="#pickImage" prefHeight="25.0" prefWidth="193.0" text="Escolher Imagem" />
+            <Button layoutX="1.0" layoutY="7.5" mnemonicParsing="false" onAction="#pickImage" prefHeight="25.0" prefWidth="193.0" text="Escolher Imagem" />
             <Button layoutX="1.0" layoutY="60.0" mnemonicParsing="false" onAction="#pretoEBranco" prefHeight="25.0" prefWidth="192.0" text="Preto e Branco" />
             <Button layoutX="1.0" layoutY="85.0" mnemonicParsing="false" onAction="#reducaoDeCores" prefHeight="25.0" prefWidth="192.0" text="Redução de cores" />
             <TextField fx:id="quantCores" layoutX="1.0" layoutY="110.0" onAction="#reducaoDeCores" prefHeight="25.0" prefWidth="192.0" promptText="Digite a quant de cores aqui" />
@@ -33,6 +33,7 @@
             <TextField fx:id="Cv" layoutX="96.0" layoutY="354.0" onAction="#cisalhamento" prefHeight="25.0" prefWidth="97.0" promptText="vertical" />
             <Button layoutX="1.0" layoutY="379.0" mnemonicParsing="false" onAction="#escalaCinza" prefHeight="25.0" prefWidth="192.0" text="Escala de cinza" />
             <Slider fx:id="regulaCinza" blockIncrement="0.05" layoutX="26.0" layoutY="404.0" max="1.0" min="-1.0" />
+            <Button layoutX="1.0" layoutY="34.0" mnemonicParsing="false" onAction="#reloadImg" prefHeight="26.0" prefWidth="192.0" text="Recarregar" />
          </children>
       </AnchorPane>
       <ScrollPane prefHeight="200.0" prefWidth="200.0">
